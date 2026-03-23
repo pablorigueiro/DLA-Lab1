@@ -1,9 +1,3 @@
-import numpy as np
-import torch
-import torch.nn as nn
-from sklearn.metrics import accuracy_score, classification_report
-from tqdm import tqdm
-
 def build_loss(config):
     loss_name = config["training"]["loss"]
 
@@ -27,7 +21,7 @@ def build_optimizer(config, model):
     else:
         raise ValueError(f"Unsupported optimizer: {optimizer_name}")
     
-def train_one_epoch(model, dl, criterion, optimizer, epoch='Unknown', device=device):
+def train_one_epoch(model, dl, criterion, optimizer, epoch='Unknown', device = "cuda"):
     model.train()
     losses = []
     predictions = []
@@ -54,7 +48,7 @@ def train_one_epoch(model, dl, criterion, optimizer, epoch='Unknown', device=dev
 
     return avg_loss, acc
 
-def evaluate(model, dl, criterion, device=device):
+def evaluate(model, dl, criterion, device = "cuda"):
     model.eval()
     losses = []
     predictions = []
