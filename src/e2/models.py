@@ -1,3 +1,6 @@
+import torch.nn as nn
+from torchvision.models import get_model
+
 def build_model(config):
     model_name = config["model"]["name"]
     num_classes = config["model"]["num_classes"]
