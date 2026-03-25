@@ -23,3 +23,5 @@ def predict_nmc(query_features, class_means):
 
     return preds, similarity_to_means
 
+def compute_accuracy(preds, labels):
+    return (preds == labels).float().mean().item()
