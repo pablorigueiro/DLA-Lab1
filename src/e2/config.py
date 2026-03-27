@@ -11,7 +11,8 @@ config = {
         "lr": 1e-3,
         "optimizer": "adam",
         "loss": "cross_entropy",
-        "weight_decay": 0.0
+        "weight_decay": 0.0,
+        "momentum": 0.9
     },
     "data": {
         "num_workers": 2
@@ -21,6 +22,6 @@ config = {
         "device": "cuda"
     },
     "logging": {
-        "run_name": "baseline_resnet18"
+        "run_name": "baseline"
     }
 }

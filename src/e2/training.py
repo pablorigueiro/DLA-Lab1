@@ -12,18 +12,31 @@ def build_loss(config):
     else:
         raise ValueError(f"Unsupported loss: {loss_name}")
     
+import torch.optim as optim
+
+
 def build_optimizer(config, model):
-    optimizer_name = config["training"]["optimizer"]
+    optimizer_name = config["training"]["optimizer"].lower()
     lr = config["training"]["lr"]
     weight_decay = config["training"]["weight_decay"]
+    momentum = config["training"].get("momentum", 0.9)
 
     trainable_params = filter(lambda p: p.requires_grad, model.parameters())
 
     if optimizer_name == "adam":
-        return torch.optim.Adam(trainable_params, lr=lr, weight_decay=weight_decay)
+        return optim.Adam(trainable_params, lr=lr, weight_decay=weight_decay)
+
+    elif optimizer_name == "adamw":
+        return optim.AdamW(trainable_params, lr=lr, weight_decay=weight_decay)
+
     elif optimizer_name == "sgd":
-        momentum = config["training"].get("momentum", 0.9)
-        return torch.optim.SGD(trainable_params, lr=lr, momentum=momentum, weight_decay=weight_decay)
+        return optim.SGD(
+            trainable_params,
+            lr=lr,
+            momentum=momentum,
+            weight_decay=weight_decay
+        )
+
     else:
         raise ValueError(f"Unsupported optimizer: {optimizer_name}")
     
